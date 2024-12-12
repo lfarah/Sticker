@@ -20,7 +20,7 @@ public struct ContinuousHorizontalRotationMotionEffect: StickerMotionEffect {
     public func body(content: Content) -> some View {
         content
             .withViewSize { view, size in
-                view.
+                view
                     .rotation3DEffect(.degrees(rotationAngle), axis: (0, 1, 0))
                     .onReceive(timer) { _ in
                         rotationAngle += intensity * speed * (360 / 60)
