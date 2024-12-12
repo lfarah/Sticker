@@ -31,7 +31,7 @@ public struct ContinuousHorizontalRotationMotionEffect: StickerMotionEffect {
                         // Update shader with new rotation values
                         shaderUpdater.update(
                             with: .init(
-                                x: rotationAngle * size.width / 2,
+                                x: rotationAngle,
                                 y: 0 // Static Y-axis as this is only horizontal rotation
                             )
                         )
