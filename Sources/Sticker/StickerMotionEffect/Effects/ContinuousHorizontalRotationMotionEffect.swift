@@ -19,20 +19,23 @@ public struct ContinuousHorizontalRotationMotionEffect: StickerMotionEffect {
 
     public func body(content: Content) -> some View {
         content
-            .rotation3DEffect(.degrees(rotationAngle), axis: (0, 1, 0))
-            .onReceive(timer) { _ in
-                rotationAngle += intensity * speed * (360 / 60)
-                if rotationAngle >= 360 {
-                    rotationAngle -= 360 // Keep the angle within [0, 360]
-                }
+            .withViewSize { view, size in
+                view.
+                    .rotation3DEffect(.degrees(rotationAngle), axis: (0, 1, 0))
+                    .onReceive(timer) { _ in
+                        rotationAngle += intensity * speed * (360 / 60)
+                        if rotationAngle >= 360 {
+                            rotationAngle -= 360 // Keep the angle within [0, 360]
+                        }
 
-                // Update shader with new rotation values
-                shaderUpdater.update(
-                    with: .init(
-                        x: rotationAngle * intensity,
-                        y: 0 // Static Y-axis as this is only horizontal rotation
-                    )
-                )
+                        // Update shader with new rotation values
+                        shaderUpdater.update(
+                            with: .init(
+                                x: rotationAngle * size.height / 2,
+                                y: 0 // Static Y-axis as this is only horizontal rotation
+                            )
+                        )
+                    }
             }
     }
 }
